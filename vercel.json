@@ -1,5 +1,0 @@
-{
-  "buildCommand": "cd lms-frontend && npm install && npm run build -- --configuration production",
-  "outputDirectory": "lms-frontend/dist/lms-frontend/browser",
-  "installCommand": "cd lms-frontend && npm install"
-}
