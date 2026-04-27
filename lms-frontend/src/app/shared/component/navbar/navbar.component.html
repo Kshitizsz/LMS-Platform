@@ -1,0 +1,47 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+  <a class="navbar-brand fw-bold" routerLink="/">🎓 LMS Platform</a>
+
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+    data-bs-target="#navMenu">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navMenu">
+    <ul class="navbar-nav me-auto">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/courses" routerLinkActive="active">Courses</a>
+      </li>
+      <li class="nav-item" *ngIf="isLoggedIn">
+        <a class="nav-link" routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav ms-auto">
+      <ng-container *ngIf="!isLoggedIn">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/auth/login">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-primary btn-sm ms-2" routerLink="/auth/register">Sign Up</a>
+        </li>
+      </ng-container>
+
+      <ng-container *ngIf="isLoggedIn">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+            👤 {{ fullName }}
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><span class="dropdown-item-text text-muted small">{{ role }}</span></li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+              <button class="dropdown-item text-danger" (click)="logout()">
+                Logout
+              </button>
+            </li>
+          </ul>
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+</nav>
