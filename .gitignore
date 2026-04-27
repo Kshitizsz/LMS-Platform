@@ -1,0 +1,17 @@
+# .NET
+**/bin/
+**/obj/
+*.user
+*.suo
+.vs/
+
+# Secrets — never commit
+**/appsettings.Production.json
+
+# Angular
+lms-frontend/node_modules/
+lms-frontend/dist/
+lms-frontend/.angular/
+
+# Environment
+.env
