@@ -140,6 +140,7 @@ builder.Services.AddCors(opt => opt.AddPolicy("AllowAngular", policy =>
           .AllowAnyMethod()
           .AllowCredentials()));
 
+
 // ─────────────────────────────────────────────────────────────────────────────
 // 8. SIGNALR
 // ─────────────────────────────────────────────────────────────────────────────
@@ -149,7 +150,8 @@ builder.Services.AddSignalR();
 // BUILD
 // ─────────────────────────────────────────────────────────────────────────────
 var app = builder.Build();
-
+var port = Environment.GetEnvironmentVariable("PORT") ?? "10000";
+app.Run($"http://0.0.0.0:{port}");
 // ─────────────────────────────────────────────────────────────────────────────
 // MIDDLEWARE PIPELINE (order matters)
 // ─────────────────────────────────────────────────────────────────────────────
