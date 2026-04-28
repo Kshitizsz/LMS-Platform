@@ -1,5 +1,6 @@
 ﻿using Hangfire;
 using Hangfire.PostgreSql;
+
 using LMS.Domain.Interfaces;
 using LMS.Infrastructure.Persistence;
 using LMS.Infrastructure.Repository;
@@ -61,7 +62,13 @@ public static class InfrastructureServiceExtensions
                 .SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
                 .UseSimpleAssemblyNameTypeSerializer()
                 .UseRecommendedSerializerSettings()
-                .UseSqlServerStorage(connectionString));
+
+            .UsePostgreSqlStorage(options =>
+            {
+                options.UseNpgsqlConnection(connectionString);
+            })
+            );
+            //.UseSqlServerStorage(connectionString));
         }
 
         services.AddHangfireServer();
