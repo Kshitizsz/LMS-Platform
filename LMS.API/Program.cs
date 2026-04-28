@@ -150,11 +150,21 @@ builder.Services.AddSignalR();
 // BUILD
 // ─────────────────────────────────────────────────────────────────────────────
 var app = builder.Build();
-var port = Environment.GetEnvironmentVariable("PORT") ?? "10000";
-app.Run($"http://0.0.0.0:{port}");
+//var port = Environment.GetEnvironmentVariable("PORT") ?? "10000";
+//app.Run($"http://0.0.0.0:{port}");
 // ─────────────────────────────────────────────────────────────────────────────
 // MIDDLEWARE PIPELINE (order matters)
 // ─────────────────────────────────────────────────────────────────────────────
+//if (app.Environment.IsDevelopment())
+//{
+//    app.Run("http://localhost:5217");
+//}
+//else
+//{
+//    var port = Environment.GetEnvironmentVariable("PORT") ?? "10000";
+//    app.Run($"http://0.0.0.0:{port}");
+//}
+
 
 // 1. Global exception handler — must be first
 app.UseMiddleware<ExceptionMiddleware>();

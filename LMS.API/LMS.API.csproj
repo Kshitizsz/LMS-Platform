@@ -11,6 +11,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Docker\**" />
+	  <Content Remove="Docker\**" />
+	  <EmbeddedResource Remove="Docker\**" />
+	  <None Remove="Docker\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<ProjectReference Include="..\LMS.Application\LMS.Application.csproj" />
 		<ProjectReference Include="..\LMS.Infrastructure\LMS.Infrastructure.csproj" />
 	</ItemGroup>
@@ -21,10 +28,6 @@
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.0" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Docker\" />
 	</ItemGroup>
 
 </Project>

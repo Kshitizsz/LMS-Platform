@@ -1,49 +1,236 @@
-<div class="container py-5">
-  <h2 class="fw-bold mb-4">Browse Courses</h2>
-
-  <div *ngIf="loading" class="text-center py-5">
-    <div class="spinner-border text-primary"></div>
-  </div>
-
-  <div class="row row-cols-1 row-cols-md-3 g-4" *ngIf="!loading">
-    <div class="col" *ngFor="let course of courses">
-      <div class="card h-100 shadow-sm">
-        <img [src]="course.thumbnailUrl || 'assets/default-course.png'"
-          class="card-img-top" style="height:180px; object-fit:cover;"
-          [alt]="course.title">
-        <div class="card-body d-flex flex-column">
-          <h5 class="card-title">{{ course.title }}</h5>
-          <p class="card-text text-muted small">{{ course.description | slice:0:100 }}...</p>
-          <div class="text-muted small mb-2">
-            👤 {{ course.instructorName }} &nbsp;|&nbsp;
-            📚 {{ course.totalModules }} modules &nbsp;|&nbsp;
-            🎯 {{ course.totalLessons }} lessons
+<!-- Hero — logged out only -->
+<section class="hero-section" *ngIf="!isLoggedIn">
+  <div class="container position-relative" style="z-index:1;">
+    <div class="row align-items-center">
+      <div class="col-lg-7 text-white">
+        <div class="mb-3">
+          <span style="background:rgba(255,255,255,0.15); color:white;
+            font-size:11px; font-weight:700; padding:6px 14px;
+            border-radius:20px; letter-spacing:1.5px;
+            text-transform:uppercase;">
+            India's Premier Tech Platform
+          </span>
+        </div>
+        <h1 style="font-size:2.8rem; font-weight:800; line-height:1.2;
+          letter-spacing:-1px;" class="mb-3">
+          Build In-Demand<br>
+          <span style="color:#ffd166;">Tech Skills</span>
+        </h1>
+        <p style="font-size:1rem; opacity:0.85; line-height:1.7;
+          max-width:480px;" class="mb-4">
+          Industry-led courses in .NET, Angular, SQL, Azure and more.
+          Learn at your own pace. Build real projects. Get hired.
+        </p>
+        <div class="d-flex gap-3 flex-wrap mb-4">
+          <a routerLink="/auth/register"
+            style="background:#ffd166; color:#1a1a2e; font-weight:700;
+              padding:12px 28px; border-radius:10px;
+              text-decoration:none; font-size:0.9rem;">
+            Start Learning
+          </a>
+          <a routerLink="/auth/login"
+            style="background:rgba(255,255,255,0.12); color:white;
+              font-weight:600; padding:12px 28px; border-radius:10px;
+              text-decoration:none; font-size:0.9rem;
+              border:1px solid rgba(255,255,255,0.25);">
+            Sign In
+          </a>
+        </div>
+        <div class="d-flex gap-4">
+          <div class="text-white">
+            <div style="font-size:1.2rem; font-weight:800;">10,000+</div>
+            <div style="font-size:0.78rem; opacity:0.7; font-weight:500;">
+              Students
+            </div>
           </div>
-          <div class="mt-auto d-flex justify-content-between align-items-center">
-            <span class="fw-bold text-primary fs-5">
-              ₹{{ course.price | number:'1.0-0' }}
-            </span>
-            <div>
-              <a [routerLink]="['/courses', course.id]"
-                class="btn btn-outline-primary btn-sm me-2">Details</a>
-              <button class="btn btn-primary btn-sm"
-  *ngIf="isLoggedIn"
-  (click)="enroll(course.id)">
-  Enroll Free
-</button>
-              <a routerLink="/auth/login"
-                class="btn btn-primary btn-sm"
-                *ngIf="!isLoggedIn">
-                Login to Enroll
-              </a>
+          <div style="width:1px; background:rgba(255,255,255,0.2);">
+          </div>
+          <div class="text-white">
+            <div style="font-size:1.2rem; font-weight:800;">50+</div>
+            <div style="font-size:0.78rem; opacity:0.7; font-weight:500;">
+              Instructors
+            </div>
+          </div>
+          <div style="width:1px; background:rgba(255,255,255,0.2);">
+          </div>
+          <div class="text-white">
+            <div style="font-size:1.2rem; font-weight:800;">4.8 / 5</div>
+            <div style="font-size:0.78rem; opacity:0.7; font-weight:500;">
+              Rating
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+</section>
 
-  <div *ngIf="!loading && courses.length === 0" class="text-center text-muted py-5">
-    No courses available yet.
+<!-- Logged in welcome bar -->
+<div *ngIf="isLoggedIn"
+  style="background:linear-gradient(135deg,#5b4fcf,#3d3ab0);
+    padding:18px 0;">
+  <div class="container d-flex justify-content-between align-items-center">
+    <div class="text-white">
+      <div style="font-weight:700; font-size:0.95rem;">
+        Continue Learning
+      </div>
+      <div style="opacity:0.7; font-size:0.8rem;">
+        Explore our latest courses below
+      </div>
+    </div>
+    <a routerLink="/dashboard"
+      style="background:#ffd166; color:#1a1a2e; font-weight:700;
+        padding:8px 20px; border-radius:8px; text-decoration:none;
+        font-size:0.83rem;">
+      My Dashboard
+    </a>
   </div>
 </div>
+
+<!-- Stats Bar -->
+<div class="container my-5">
+  <div class="stats-bar">
+    <div class="row">
+      <div class="col-6 col-md-3">
+        <div class="stat-item">
+          <h3>10+</h3>
+          <p>Courses</p>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-item">
+          <h3>Rs.999</h3>
+          <p>Starting Price</p>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-item">
+          <h3>24/7</h3>
+          <p>Access</p>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-item">
+          <h3>4.8</h3>
+          <p>Avg Rating</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Courses Section -->
+<div class="container pb-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="section-title mb-0">
+      All <span>Courses</span>
+    </h2>
+    <span style="font-size:0.83rem; color:#999; font-weight:500;">
+      {{ courses.length }} courses available
+    </span>
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border"></div>
+    <p style="color:#aaa; margin-top:12px; font-size:0.88rem;">
+      Loading courses...
+    </p>
+  </div>
+
+  <!-- Grid -->
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4"
+    *ngIf="!loading">
+    <div class="col" *ngFor="let course of courses">
+      <div class="course-card">
+
+        <!-- Image -->
+        <div class="course-img-wrapper">
+          <img [src]="course.thumbnailUrl"
+            [alt]="course.title"
+            onerror="this.src='https://via.placeholder.com/100x80?text=Course'">
+        </div>
+
+        <div class="p-4">
+          <!-- Badge -->
+          <div class="mb-2">
+            <span class="level-badge">Beginner Friendly</span>
+          </div>
+
+          <!-- Title -->
+          <h5 class="course-title">{{ course.title }}</h5>
+
+          <!-- Description -->
+          <p class="course-desc">
+            {{ course.description | slice:0:90 }}...
+          </p>
+
+          <!-- Instructor -->
+          <div class="d-flex align-items-center gap-2 mb-3">
+            <div class="instructor-avatar">
+              {{ course.instructorName.charAt(0) }}
+            </div>
+            <span class="instructor-name">
+              {{ course.instructorName }}
+            </span>
+          </div>
+
+          <!-- Meta -->
+          <div class="d-flex gap-3 mb-3 course-meta">
+            <span>{{ course.totalModules }} modules</span>
+            <span>{{ course.totalLessons }} lessons</span>
+          </div>
+
+          <hr style="border-color:#f0f0f5; margin:12px 0;">
+
+          <!-- Price + Actions -->
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="price-tag">
+              Rs.{{ course.price | number:'1.0-0' }}
+            </span>
+            <div class="d-flex gap-2">
+              <button class="btn-details">Details</button>
+              <button class="btn-enroll"
+                *ngIf="isLoggedIn"
+                (click)="enroll(course.id)">
+                Enroll
+              </button>
+              <a routerLink="/auth/login"
+                class="btn-enroll"
+                *ngIf="!isLoggedIn">
+                Enroll
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty -->
+  <div *ngIf="!loading && courses.length === 0"
+    class="text-center py-5">
+    <p style="color:#aaa; font-size:1rem;">No courses available yet.</p>
+  </div>
+</div>
+
+<!-- CTA Footer — logged out only -->
+<section class="cta-section" *ngIf="!isLoggedIn">
+  <div class="container text-center">
+    <h2 style="font-size:1.8rem; font-weight:800; color:#1a1a2e;
+      letter-spacing:-0.5px;" class="mb-3">
+      Ready to Advance Your Career?
+    </h2>
+    <p style="color:#888; font-size:0.95rem;" class="mb-4">
+      Join thousands of developers growing with LMS Platform
+    </p>
+    <a routerLink="/auth/register"
+      style="background:linear-gradient(135deg,#5b4fcf,#3d3ab0);
+        color:white; font-weight:700; padding:13px 32px;
+        border-radius:10px; text-decoration:none; font-size:0.9rem;
+        display:inline-block;">
+      Get Started Free
+    </a>
+  </div>
+</section>
