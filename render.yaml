@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: lms-api
+    runtime: dotnet
+    buildCommand: dotnet publish LMS.API/LMS.API.csproj -c Release -o publish
+    startCommand: dotnet publish/LMS.API.dll
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: ASPNETCORE_URLS
+        value: http://0.0.0.0:10000
+      - key: ConnectionStrings__DefaultConnection
+        sync: false
+      - key: Jwt__SecretKey
+        sync: false
+      - key: Jwt__Issuer
+        value: LmsApi
+      - key: Jwt__Audience
+        value: LmsClient
+      - key: Jwt__ExpiryMinutes
+        value: "60"
+      - key: Stripe__SecretKey
+        sync: false
+      - key: Stripe__WebhookSecret
+        sync: false

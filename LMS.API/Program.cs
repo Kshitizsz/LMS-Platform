@@ -135,7 +135,7 @@ builder.Services.AddSwaggerGen(opt =>
 // 7. CORS — allow Angular dev server
 // ─────────────────────────────────────────────────────────────────────────────
 builder.Services.AddCors(opt => opt.AddPolicy("AllowAngular", policy =>
-    policy.WithOrigins("http://localhost:4200", "https://localhost:4200")
+    policy.WithOrigins("http://localhost:4200", "https://lms-platform-one-sigma.vercel.app/courses", "https://localhost:4200")
           .AllowAnyHeader()
           .AllowAnyMethod()
           .AllowCredentials()));
