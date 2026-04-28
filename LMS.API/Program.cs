@@ -170,18 +170,20 @@ var app = builder.Build();
 app.UseMiddleware<ExceptionMiddleware>();
 
 // 2. Swagger — dev only
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "LMS API v1");
-        c.RoutePrefix = "swagger"; // http://localhost:{port}/swagger
-    });
-}
+//if (app.Environment.IsDevelopment())
+//{
+//    app.UseSwagger();
+//    app.UseSwaggerUI(c =>
+//    {
+//        c.SwaggerEndpoint("/swagger/v1/swagger.json", "LMS API v1");
+//        c.RoutePrefix = "swagger"; // http://localhost:{port}/swagger
+//    });
+//}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 // 3. HTTPS redirect
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 // 4. CORS — before auth
 app.UseCors("AllowAngular");
@@ -202,5 +204,5 @@ app.UseHangfireDashboard("/hangfire", new DashboardOptions
 // 8. SignalR hubs (Phase 4 — placeholder ready)
 app.MapHub<NotificationHub>("/hubs/notifications");
 // Also add this so SignalR knows which claim is the user identifier
-
+app.MapGet("/", () => "API is running ");
 app.Run();
