@@ -24,7 +24,7 @@ public class JwtTokenService : IJwtTokenService
 
         var claims = new[]
 {
-    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()), // ← change Sub to this
+    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
     new Claim(JwtRegisteredClaimNames.Email, user.Email),
     new Claim(ClaimTypes.Role, user.Role),
     new Claim("fullName", $"{user.FirstName} {user.LastName}"),
@@ -45,7 +45,9 @@ public class JwtTokenService : IJwtTokenService
     {
         var handler = new JwtSecurityTokenHandler();
         var jwt = handler.ReadJwtToken(token);
-        var sub = jwt.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sub)?.Value;
-        return sub is null ? null : Guid.Parse(sub);
+        var userId = jwt.Claims.FirstOrDefault(c =>
+            c.Type == ClaimTypes.NameIdentifier || c.Type == JwtRegisteredClaimNames.Sub)?.Value;
+
+        return userId is null ? null : Guid.Parse(userId);
     }
 }
