@@ -22,16 +22,16 @@ public static class InfrastructureServiceExtensions
                            == "Production";
 
         // EF Core — SQL Server locally, PostgreSQL in production
-        if (isProduction)
-        {
-            services.AddDbContext<AppDbContext>(opt =>
-                opt.UseNpgsql(connectionString));
-        }
-        else
-        {
-            services.AddDbContext<AppDbContext>(opt =>
-                opt.UseSqlServer(connectionString));
-        }
+        //if (isProduction)
+        //{
+        services.AddDbContext<AppDbContext>(opt =>
+            opt.UseNpgsql(connectionString));
+        //}
+        //else
+        //{
+            //services.AddDbContext<AppDbContext>(opt =>
+            //    opt.UseSqlServer(connectionString));
+        //}
 
         // Unit of Work
         services.AddScoped<IUnitOfWork, UnitOfWork>();
