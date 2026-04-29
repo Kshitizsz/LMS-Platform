@@ -18,7 +18,7 @@ public static class InfrastructureServiceExtensions
     {
         var connectionString = config.GetConnectionString("DefaultConnection");
 
-<<<<<<< HEAD
+
         // EF Core — SQL Server locally, PostgreSQL in production
         //if (isProduction)
         //{
@@ -30,13 +30,13 @@ public static class InfrastructureServiceExtensions
             //services.AddDbContext<AppDbContext>(opt =>
             //    opt.UseSqlServer(connectionString));
         //}
-=======
+
         if (string.IsNullOrWhiteSpace(connectionString))
         {
             throw new InvalidOperationException(
                 "Connection string 'DefaultConnection' is not configured. Set ConnectionStrings__DefaultConnection in Render.");
         }
->>>>>>> 590d546a319b2b7df1bab1847a80cad1b66c53f6
+
 
         services.AddDbContext<AppDbContext>(opt =>
             opt.UseNpgsql(connectionString));
